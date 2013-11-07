@@ -148,8 +148,79 @@ class Utils {
         values[j] = tmp;
     } // swap(T[], int, int)
 
+    // +----------------+--------------------------------------------------
+    // | Output Methods |
+    // +----------------+
+
+    /**
+     * Get a string for one element of an array.
+     */
+    public static String element(Object value) {
+        if (value == null) {
+            return "nul";
+        } 
+        String str = value.toString();
+        if (str.length() == 0) {
+            return "   ";
+        } else if (str.length() == 1) {
+            return "  " + str;
+        } else if (str.length() == 2) {
+            return " " + str;
+        } else {
+            return str.substring(0, 3);
+        } // else
+    } // element
+
+    /**
+     * Print a portion of an array.  If pen is null, prints nothing
+     */
+    public static <T> void printSubarray(PrintWriter pen, T[] values, 
+            int lb, int ub) {
+        // Sanity check
+        if (pen == null) return;
+
+        // Print indices
+        for (int i = 0; i <= values.length; i++) {
+            if (i < 10) {
+                pen.print(i + "   ");
+            } else if (i < 100) {
+                pen.print(i + "  ");
+            } else if (i < 1000) {
+                pen.print(i + " ");
+            } else {
+                // Indices this big will cause trouble.  Too bad.
+                pen.print(i);
+            } // large indices
+        } // for
+        pen.println();
+
+        // Print top border of cells
+        for (int i = 0; i < values.length; i++) {
+            pen.print ("+---");
+        } // for
+        pen.println("+");
+
+        // Print cells
+        for (int i = 0; i < lb; i++) {
+            pen.print("|   ");
+        } // for
+        for (int i = lb; i < ub; i++) {
+           pen.print ("|" + element(values[i]));
+        } // for
+        for (int i = ub; i < values.length; i++) {
+            pen.print("|   ");
+        } // for
+        pen.println("|");
+
+        // Print bottom border of cells
+        for (int i = 0; i < values.length; i++) {
+            pen.print ("+---");
+        } // for
+        pen.println("+");
+    } // printSubarray;
+
     // +-------------+-----------------------------------------------------
-    // | Expermients |
+    // | Experiments |
     // +-------------+
 
     /**
@@ -165,7 +236,8 @@ class Utils {
     /**
      * Check the result of sorting.
      */
-    public static <T> void checkSorting(PrintWriter pen, T[] sorted, T[] values, T[] resorted) {
+    public static <T> void checkSorting(PrintWriter pen, T[] sorted, 
+            T[] values, T[] resorted) {
         // Print a quick prefix so that we can see whether or not the
         // sort worked.
         if (Arrays.equals(sorted,resorted)) {

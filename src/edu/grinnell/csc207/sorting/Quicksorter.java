@@ -210,7 +210,6 @@ public class Quicksorter<T> extends SorterBridge<T> {
      * of vals.  Return the index of the pivot.
      */
     int selectPivot(T[] vals, Comparator<T> order, int lb, int ub) {
-        if (pen != null) return 3;
         int i0 = lb + generator.nextInt(ub-lb);
         int i1 = lb + generator.nextInt(ub-lb);
         int i2 = lb + generator.nextInt(ub-lb);

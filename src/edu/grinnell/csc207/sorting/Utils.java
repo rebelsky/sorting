@@ -174,25 +174,36 @@ class Utils {
     /**
      * Print a portion of an array.  If pen is null, prints nothing
      */
-    public static <T> void printSubarray(PrintWriter pen, T[] values, 
+    public static <T> void printSubarray(PrintWriter pen, T[] values,
             int lb, int ub) {
+        printSubarray(pen, values, lb, ub, true);
+    } // printSubarray(PrintWriter, T[], int, int)
+
+    /**
+     * Print a portion of an array.  If pen is null, prints nothing
+     * If indices is true, also includes the indices.
+     */
+    public static <T> void printSubarray(PrintWriter pen, T[] values, 
+            int lb, int ub, boolean indices) {
         // Sanity check
         if (pen == null) return;
 
         // Print indices
-        for (int i = 0; i <= values.length; i++) {
-            if (i < 10) {
-                pen.print(i + "   ");
-            } else if (i < 100) {
-                pen.print(i + "  ");
-            } else if (i < 1000) {
-                pen.print(i + " ");
-            } else {
-                // Indices this big will cause trouble.  Too bad.
-                pen.print(i);
+        if (indices) {
+            for (int i = 0; i <= values.length; i++) {
+                if (i < 10) {
+                    pen.print(i + "   ");
+                } else if (i < 100) {
+                    pen.print(i + "  ");
+                } else if (i < 1000) {
+                    pen.print(i + " ");
+                } else {
+                    // Indices this big will cause trouble.  Too bad.
+                    pen.print(i);
             } // large indices
-        } // for
-        pen.println();
+            } // for
+            pen.println();
+        } // if we're supposed to print indices
 
         // Print top border of cells
         for (int i = 0; i < values.length; i++) {
